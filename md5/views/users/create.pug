@@ -1,0 +1,21 @@
+extends ../layouts/common
+block content
+    h2 Create User
+    form(action="/users/create" method="POST")  
+        .form-group
+        -var a=values?values.name:""
+            label(for="name") Name
+            if a==""
+                       .badge.badge-secondary.ml-2=namerequire
+            else
+                        .badge.badge-secondary.ml-2=nameerror
+            input#name(type=" text" class="form-control" name="name" value=values?values.name:"")
+        .form-group
+        -var a=values?values.phone:""
+            label(for="phone") Phone
+            if a==""
+                        .badge.badge-secondary.ml-2=phonerequire
+            else
+                        .badge.badge-secondary.ml-2=phoneerror
+            input#phone(type=" text" class="form-control" name="phone" value=values?values.phone:"")
+        button(class="btn btn-primary") create

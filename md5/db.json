@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "name": "Tien Loc",
+      "phone": "0932478783",
+      "id": "ze-zRqfhq",
+      "email": "tienloc18122000@gmail.com",
+      "password": "12345"
+    },
+    {
+      "name": "Tien Loc1",
+      "phone": "0522466085",
+      "id": "GtrhZOzdF"
+    }
+  ]
+}

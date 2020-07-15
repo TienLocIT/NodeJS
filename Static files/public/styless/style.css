@@ -1,0 +1,15 @@
+nav a{
+    color: rgb(161, 156, 156) !important;
+}
+nav a:hover{
+    color: white !important;
+}
+.navto{
+    background-color: rgb(240, 131, 240) !important;
+}
+.coderx-logo{
+    width: 40px;
+}
+li a:hover{
+    text-decoration: none;
+}

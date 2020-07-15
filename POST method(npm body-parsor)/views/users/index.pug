@@ -1,0 +1,9 @@
+h1 Users
+a(href="/users/create" style="font-size:45;text-decoration:none;") NewOne
+form(action="/users/search" method="GET")
+    input(type="text"  value=e  name="q" )
+    button(id="button" ) Search
+              
+ul 
+    each user in users
+        li=user.name  

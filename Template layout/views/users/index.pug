@@ -1,0 +1,16 @@
+extends ../layouts/common
+block content
+    h1 Users
+    a(href="/users/create") NewOne
+    form(action="/users/search" method="GET")
+        input(type="text"  value=e  name="q" )
+        button(id="button" ) Search
+                
+    ul 
+        each user in users
+            li  
+                span=user.name
+                span &nbsp;
+                a(href="/users/"+user.id) View 
+                span &nbsp;
+                a(href="/users/remove/"+user.id) Remove
