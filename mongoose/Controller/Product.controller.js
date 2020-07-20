@@ -1,7 +1,7 @@
 var db=require("../db")
 var product=require("../models/product.models")
 module.exports={
-    index:function(req,res){
+    index: async function(req,res){
 // var sessionId=req.signedCookies.sessionId;
 // var limit=8;
 // var arrayproduct=db.get("product");
@@ -32,10 +32,22 @@ module.exports={
 //          e:page,
 //          number1:number
 //      })
-   product.find().then(function(product){
+  var page=parseInt(req.query.page)||1//n
+  var products=await product.find();
+     var limit=2;
+     if(products.length%2==0){
+         number=products.length;
+     }
+     else{
+        var number=Math.ceil(products.length/limit);
+     }
+     var begin=(page-1)*limit;
+     var end=page*limit;
        res.render("product/index",{
-                  product:product
+                  product:products.slice(begin,end),
+                  e:page,
+                  number1:number,
        })
-   });
     }
+  
 }

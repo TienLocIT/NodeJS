@@ -24,8 +24,8 @@ app.get("/",function(req,res){
        name:"PPP",
    })
 })
-app.use("/auth",numberproductMiddle,authLogin)
-app.use("/users",numberproductMiddle,authRequire.requireAuth,userRoutes);
+app.use("/auth",authLogin)
+app.use("/users",authRequire.requireAuth,userRoutes);
 app.use("/product",productRoutes);
 app.use("/cart",cartRouth);
 app.listen(post,function(){

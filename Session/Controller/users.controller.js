@@ -42,7 +42,19 @@ module.exports={
     createPost:function(req,res){
         req.body.id=shortid.generate();
         req.body.avatar=req.file.path.split("\\").slice(1).join("\\");
+        console.log(req.body.name);
         db.get("users").push(req.body).write();
         res.redirect("/users")
+    },
+    Update:function(req,res){
+        var id=req.params.id;
+        res.render("users/update",{
+           id:id,
+        });
+    },
+    updatePost:function(req,res){
+    var id=req.params.id;
+    db.get("users").find({id:id}).assign({name:req.body.nameupdate}).write();
+    res.redirect("/users");
     }
 }

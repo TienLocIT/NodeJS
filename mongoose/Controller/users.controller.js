@@ -1,48 +1,62 @@
-var db=require("../db");
+
 var shortid = require('shortid');
+var user=require("../models/user.models");
 module.exports={
-    index:function(req,res){
+    index: async function(req,res){
+        var users=await user.find();
         res.render("users/index",{
-            users:db.get("users").value(),
-    })
+            users:users
+        })
     },
-    serch:function(req,res){
+    serch:async function(req,res){
+        var users=await user.find();
         var q=req.query.q;  
-        var a;
          if(q==""){
               res.redirect("/users")
          }
          else{
-            a=db.get('users').filter(function(user){
-                return user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
-            }).value();
-        }     
-        res.render("users/index",{
-            e:q,
-            users:a,
-        })
+                res.render("users/index",{
+                    e:q,
+                    users:users.filter(function(user){
+                        return user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
+                    }),
+                })
+        }      
     },
     remove:function(req,res){
         var id=req.params.id;
-        db.get("users").remove({
-            id:id
-        }).write();
+        user.remove({_id:id}).exec();
         res.redirect("/users")
     },
     create:function(req,res){
         res.render("users/create")
     },
-    view:function(req,res){
+    view:async function(req,res){
         var id=req.params.id;
-        var user=db.get("users").find({id:id}).value();
+        var users=await user.find();
         res.render("users/view",{
-            user:user
+            user:users.find(function(user){
+                return user.id==id;
+            })
         })
     },
     createPost:function(req,res){
         req.body.id=shortid.generate();
         req.body.avatar=req.file.path.split("\\").slice(1).join("\\");
-        db.get("users").push(req.body).write();
+        user.create(req.body)
         res.redirect("/users")
+    },
+    update:function(req,res){
+        var id=req.params.id;
+        res.render("users/update",{
+            id:id,
+        })
+    },
+    updatePost: async function(req,res){
+        var id=req.params.id;
+        var users=await user.findOne({_id:id});
+        users.name=req.body.nameupdate;
+        users.save();
+        res.redirect("/users");
     }
 }

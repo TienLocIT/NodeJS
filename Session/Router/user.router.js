@@ -11,4 +11,6 @@ router.get("/remove/:id",controller.remove)
 router.get("/create",controller.create)
 router.get("/:id",controller.view)
 router.post("/create",upload.single("avatar"),validate.postCreate,controller.createPost)
+router.get("/update/:id",controller.Update);
+router.post("/update/:id",controller.updatePost);
 module.exports=router;

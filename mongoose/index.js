@@ -10,8 +10,22 @@ var cookieParser = require("cookie-parser")
 var authRequire = require("./MiddleWare/auth.middle")
 var sessionMiddle = require("./MiddleWare/session.middleware");
 var cartRouth = require("./Router/cart.route");
-mongoose.connect(process.env.MongoURL, { useNewUrlParser: true })
+var databseURLTrue={
+    useUnifiedTopology: true ,
+    useNewUrlParser: true
+}
+mongoose.connect(process.env.MongoURL,databseURLTrue )
+mongoose.connection.on("connected",function(){
+    console.log("Connected to database");
+})
+mongoose.connection.on("disconnected",function(){
+    console.log("Can not connected to database");
+})
+
 app.use(bodyParser.urlencoded({ extended: true }));
+mongoose.Promise=global.Promise;
+var db=mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 // parse application/json
 app.use(bodyParser.json());
 app.use(cookieParser(process.env.SessionSecret));
