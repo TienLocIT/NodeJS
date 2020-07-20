@@ -13,7 +13,8 @@ var cartRouth = require("./Router/cart.route");
 var api=require("./api/routes/product.route");
 var databseURLTrue={
     useUnifiedTopology: true ,
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useFindAndModify:true,
 }
 mongoose.connect(process.env.MongoURL,databseURLTrue )
 mongoose.connection.on("connected",function(){
